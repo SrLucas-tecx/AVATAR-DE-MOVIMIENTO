@@ -1,0 +1,17 @@
+
+{
+  "imagenes": {
+    "frente": {
+      "ruta": "imagenes/frente.png",
+      "resize": [640, 480]
+    },
+    "lado": {
+      "ruta": "imagenes/lado.jpg",
+      "resize": [800, 600]
+    },
+    "ninguno": {
+      "ruta": "imagenes/sin_rostro.png",
+      "resize": [400, 300]
+    }
+  }
+}
