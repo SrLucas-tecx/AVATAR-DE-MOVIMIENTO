@@ -2,8 +2,8 @@ import cv2
 
 class Detector:
     def __init__(self):
-        self.face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
-        self.profile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_profileface.xml")
+        self.face_cascade = cv2.CascadeClassifier("cascadas/haarcascade_frontalface_default.xml")
+        self.profile_cascade = cv2.CascadeClassifier("cascadas/haarcascade_profileface.xml")
 
     def detectar(self, frame):
         gris = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)

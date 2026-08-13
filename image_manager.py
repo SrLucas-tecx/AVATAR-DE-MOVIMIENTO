@@ -30,7 +30,6 @@ class ImageManager:
             print(f"[ERROR] No se pudo cargar la imagen: {ruta}")
             return
 
-        # Redimensionar si está configurado
         if resize and isinstance(resize, list) and len(resize) == 2:
             img = cv2.resize(img, tuple(resize))
 

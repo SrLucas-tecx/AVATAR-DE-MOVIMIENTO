@@ -1,36 +1,28 @@
-from camera import Camera
+import cv2
 from detector import Detector
 from image_manager import ImageManager
-import cv2
+from camera import Camera
 
-def main():
-    cam = Camera()
-    detector = Detector()
-    img_manager = ImageManager()
+detector = Detector()
+image_manager = ImageManager("config.json")
+camera = Camera()
 
-    mostrar_camara = True
+while True:
+    frame = camera.get_frame()
+    if frame is None:
+        break
 
-    while True:
-        frame = cam.get_frame()
-        if frame is None:
-            break
+    estado = detector.detectar(frame)
+    print("Detección:", estado)
 
-        estado = detector.detectar(frame)
-        img_manager.mostrar(estado)
+    # Ventana 1: cámara
+    cv2.imshow("Camara", frame)
 
-        if mostrar_camara:
-            cv2.imshow("Camara", frame)
+    # Ventana 2: imagen asociada al estado
+    image_manager.mostrar(estado)
 
-        tecla = cv2.waitKey(1) & 0xFF
-        if tecla == ord('q'):
-            break
-        elif tecla == ord('c'):
-            mostrar_camara = not mostrar_camara
-            if not mostrar_camara:
-                cv2.destroyWindow("Camara")
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
-    cam.release()
-    cv2.destroyAllWindows()
-
-if __name__ == "__main__":
-    main()
+camera.release()
+cv2.destroyAllWindows()
