@@ -10,3 +10,4 @@ class Camera:
 
     def release(self):
         self.cap.release()
+#67890

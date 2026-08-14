@@ -18,19 +18,24 @@ class ImageManager:
             print(f"[ERROR] No hay configuración para estado '{estado}'")
             return
 
-        ruta = data.get("ruta")
-        resize = data.get("resize")
-
-        if not ruta or not os.path.exists(ruta):
-            print(f"[ERROR] No se encontró la imagen: {ruta}")
+        ruta_relativa = data.get("ruta")
+        if not ruta_relativa:
+            print(f"[ERROR] No se definió ruta para estado '{estado}'")
             return
 
-        img = cv2.imread(ruta)
+        # Convertir a ruta absoluta
+        ruta_absoluta = os.path.join(os.getcwd(), ruta_relativa)
+
+        if not os.path.exists(ruta_absoluta):
+            print(f"[ERROR] No se encontró la imagen: {ruta_absoluta}")
+            return
+
+        img = cv2.imread(ruta_absoluta)
         if img is None:
-            print(f"[ERROR] No se pudo cargar la imagen: {ruta}")
+            print(f"[ERROR] No se pudo cargar la imagen: {ruta_absoluta}")
             return
 
-        # Redimensionar si está configurado
+        resize = data.get("resize")
         if resize and isinstance(resize, list) and len(resize) == 2:
             img = cv2.resize(img, tuple(resize))
 
